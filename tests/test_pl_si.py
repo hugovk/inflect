@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
+#  use nosetest to run these tests
 
-# use nosetest to run these tests
-
-from nose.tools import eq_
+from __future__ import unicode_literals
 
 import inflect
+from nose.tools import eq_
 
 FNAME = 'tests/words.txt'
 # FNAME = 'tests/list-of-nouns.txt'
@@ -45,3 +46,9 @@ plnoun(%s)==%s
 sinoun(%s)==%s''' % (word,
             word, p.plural_noun(word, 2),
             p.plural_noun(word, 2), p.singular_noun(p.plural_noun(word, 2), 1)))
+
+
+def test_unicode():
+    p = inflect.engine()
+    plural = p.plural('ångstrom')
+    assert plural == "ångstroms"
