@@ -2116,13 +2116,9 @@ class engine:
         elif isinstance(obj, ast.Tuple):
             return tuple([self._get_value_from_ast(e) for e in obj.elts])
 
-        # None, True and False are NameConstants in Py3.4 and above.
-        elif sys.version_info.major >= 3 and isinstance(obj, ast.NameConstant):
+        # None, True and False are NameConstants.
+        elif isinstance(obj, ast.NameConstant):
             return obj.value
-
-        # For python versions below 3.4
-        elif isinstance(obj, ast.Name) and (obj.id in ["True", "False", "None"]):
-            return string_to_constant[obj.id]
 
         # Probably passed a variable name.
         # Or passed a single word without wrapping it in quotes as an argument
